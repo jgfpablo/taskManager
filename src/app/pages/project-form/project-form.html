@@ -1,0 +1,20 @@
+
+<form [formGroup]="projectForm" (ngSubmit)="newProject()">
+  <input
+    type="text"
+    placeholder="Nombre"
+    formControlName="name"
+    name="name"
+    required
+  />
+
+  <textarea
+    placeholder="Descripción"
+    formControlName="description"
+    name="description">
+  </textarea>
+
+  <button type="submit">
+    Crear
+  </button>
+</form>
