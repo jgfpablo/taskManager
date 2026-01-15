@@ -26,5 +26,10 @@ export class ProjectService {
     return this.http.get<any>(`${this.api}/${id}`);
   }
 
+  addMembersToProject(projectId: string, email: string,role:string) {
+    console.log('Adding member to project:', projectId, email);
+    return this.http.post<any>(`${this.api}/addMembers`, {projectId, email, role });
+  }
+
 
 }

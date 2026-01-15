@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Auth } from '../../services/auth/auth';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,7 @@ export class Login {
 
 private authService = inject(Auth);
 private fb = inject(FormBuilder);
+private router = inject(Router);
 
 loginForm = this.fb.group({
   email: ['', [Validators.required, Validators.email]],
@@ -26,8 +28,9 @@ public login() {
   this.authService.login(email!, password!).subscribe({
     next: (response) => {
       this.authService.saveToken(response.token);
-      console.log('Login successful');
-      // Redirect to projects or another page after successful login
+     
+      this.router.navigate(['/projects']);
+
     },
     error: (error) => {
       console.error('Login failed', error);

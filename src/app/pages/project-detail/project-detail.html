@@ -12,7 +12,10 @@
     </span>
   </div>
 
-  <h3 class="text-lg font-semibold mb-2">Miembros</h3>
+  <h3 class="text-lg font-semibold mb-2">Members</h3>
+
+  <button (click)="modalAddMember()">add Member</button>
+  <button (click)="modalAddMember()">add Task</button>
   <div class="overflow-x-auto border rounded">
     <table class="min-w-full divide-y divide-gray-200">
       <thead class="bg-gray-50">
@@ -41,3 +44,11 @@
     </table>
   </div>
 </div>
+
+
+
+@if (modal) {
+  <app-modal (close)="modalAddMember()" (save)="saveNewMember($event.email,$event.role)">  
+
+</app-modal>
+}
