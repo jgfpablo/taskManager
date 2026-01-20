@@ -12,4 +12,8 @@ export class UsersService {
     return this.HttpClient.get<any>('http://localhost:3000/api/users');
   }
 
+  getUserById(id: string) {
+    return this.HttpClient.get<any>(`${this.api}/${id}`);
+  }
+
 }

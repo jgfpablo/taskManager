@@ -1,8 +1,8 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { ProjectService } from '../../services/project/project-service';
 import { RouterModule,Router} from '@angular/router';
 import { CommonModule } from '@angular/common';
- import { Project } from '../../interfaces/project-interface';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-project-list',
@@ -12,25 +12,20 @@ import { CommonModule } from '@angular/common';
 })
 export class ProjectList {
 
+
   private projectsService = inject(ProjectService);
   private router = inject(Router);
-  public projects = signal<Project[]>([]);
-  
-  
-    ngOnInit() {
-    this.projectsService.getProjects().subscribe({
-      next: (projects:Project[]) => {
-        console.log('Projects loaded', projects);
-        this.projects.set(projects);
-        
-      },
-      error: (error) => console.error('Failed to load projects', error)
-    });
+  public projects = toSignal(this.projectsService.projectList$);
+
+
+
+
+  ngOnInit() {
+    this.projectsService.getProjects();
+    console.log('Projects:', this.projects());
   }
 
-
   showProject(projectId: string) {
-    
     this.router.navigate(['/projects', projectId]);
   }
 }
