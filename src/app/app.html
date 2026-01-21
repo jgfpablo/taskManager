@@ -1,5 +1,16 @@
-<div class="bg-amber-500">
+<div class="flex flex-1">
+  @if (router.url !== '/login') {
+    <!-- Sidebar ocupa 20% -->
+    <app-sidebar class="w-1/5"></app-sidebar>
 
-  <router-outlet></router-outlet>
-
+    <!-- Contenido ocupa el resto -->
+    <div class="flex-1 m-8 p-8 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl">
+      <router-outlet></router-outlet>
+    </div>
+  } @else {
+    <!-- Si no hay sidebar, ocupa todo -->
+    <div class="w-full  p-8 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl">
+      <router-outlet></router-outlet>
+    </div>
+  }
 </div>

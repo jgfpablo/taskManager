@@ -1,50 +1,64 @@
-<div class="max-w-4xl mx-auto p-6 bg-white shadow rounded">
-  <h2 class="text-2xl font-bold mb-2">{{ project()?.name }}</h2>
-  <p class="text-gray-600 mb-4">{{ project()?.description }}</p>
+<div class=" mx-auto p-8 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl">
+  <!-- Nombre y descripción -->
+  <h2 class="text-3xl font-bold mb-2 text-white">{{ project()?.name }}</h2>
+  <p class="text-gray-200 mb-6">{{ project()?.description }}</p>
 
-  <div class="mb-4">
-    <span class="text-sm text-gray-500">
+  <!-- Metadata -->
+  <div class="mb-6 space-y-1">
+    <span class="block text-sm text-gray-400">
       Creado el: {{ project()?.created_at | date:'medium' }}
     </span>
-    <br />
-    <span class="text-sm text-gray-500">
+    <span class="block text-sm text-gray-400">
       ID Proyecto: {{ project()?.id }}
     </span>
   </div>
 
-  <div class="flex">
-      <h3 (click)="seleccion = 'members'" class="text-lg font-semibold mb-2">Members </h3> / <h3 class="text-lg font-semibold mb-2" (click)="seleccion = 'tasks'"> Tasks</h3>
+  <!-- Tabs -->
+  <div class="flex items-center gap-4 mb-4">
+    <h3
+      (click)="seleccion = 'members'"
+      class="cursor-pointer text-lg font-semibold px-3 py-1 rounded-lg transition
+             hover:bg-white/10 hover:text-purple-400"
+      [class.text-purple-400]="seleccion === 'members'"
+    >
+      Members
+    </h3>
+    <span class="text-gray-500">/</span>
+    <h3
+      (click)="seleccion = 'tasks'"
+      class="cursor-pointer text-lg font-semibold px-3 py-1 rounded-lg transition
+             hover:bg-white/10 hover:text-purple-400"
+      [class.text-purple-400]="seleccion === 'tasks'"
+    >
+      Tasks
+    </h3>
   </div>
 
-  <div class="overflow-x-auto border rounded">
-    <!-- relleno -->
-
+  <!-- Contenido dinámico -->
+  <div class="overflow-x-auto border border-white/20 rounded-xl bg-white/5 p-4">
     @if(seleccion === 'members'){
       <app-members [project]="project()"></app-members>
-    }@else{
+    } @else {
       <app-tasks [project]="project()"></app-tasks>
     }
-
   </div>
 </div>
 
-
-
+<!-- Modales -->
 @if ((sharedService.modal$ | async) === 'addMember' ){
-  <app-modal >  
-     <app-add-new-member [projectId]="project()?.id ?? ''"></app-add-new-member>
+  <app-modal>
+    <app-add-new-member [projectId]="project()?.id ?? ''"></app-add-new-member>
   </app-modal>
 }
 
 @if ((sharedService.modal$ | async) === 'addTask' ){
-  <app-modal >  
+  <app-modal>
     <app-add-new-task [projectId]="project()?.id ?? ''"></app-add-new-task>
   </app-modal>
 }
 
-
 @if ((sharedService.modal$ | async) === 'deleteMember' ){
-  <app-modal >  
-    <app-delete-member></app-delete-member>>
+  <app-modal>
+    <app-delete-member></app-delete-member>
   </app-modal>
 }
