@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -7,14 +8,18 @@ import { HttpClient } from '@angular/common/http';
 export class Auth {
   constructor(private http: HttpClient) {}
   
+  user$ = new BehaviorSubject<any>(null);
+
   private api =  'http://localhost:3000/api/';
 
 
  login(email: string, password: string) {
-    return this.http.post<{ token: string }>(
+    return this.http.post<{ token: string,user:any }>(
       `${this.api}auth/login`,
       { email, password }
-    );
+    ).pipe(tap(response => {
+      this.user$.next(response.user);
+    }));
   }
 
   saveToken(token: string) {

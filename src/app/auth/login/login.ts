@@ -27,8 +27,9 @@ public login() {
   const {email, password} = this.loginForm.value;
   this.authService.login(email!, password!).subscribe({
     next: (response) => {
+      console.log('Login successful', response.user);
       this.authService.saveToken(response.token);
-     
+      
       this.router.navigate(['/projects']);
 
     },

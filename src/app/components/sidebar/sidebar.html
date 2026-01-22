@@ -3,18 +3,18 @@
   <div class="flex items-center space-x-4">
     <div class="w-12 h-12 rounded-full bg-linear-to-br from-purple-500 to-indigo-700 shadow-lg"></div>
     <div>
-      <div class="font-semibold text-white">Andrew Smith</div>
-      <div class="text-sm text-gray-300">Product Designer</div>
+       @if (authServices.user$ | async; as user) {
+    <div class="font-semibold text-white">{{ user.name }}</div>
+    <div class="text-sm text-gray-300">{{ user.email }}</div>
+  }
     </div>
   </div>
 
   <!-- Navegación -->
   <nav class="flex flex-col space-y-2">
     <span class="text-xs text-gray-400 uppercase tracking-wide">Main</span>
-    <a href="#" class="px-4 py-2 rounded-lg hover:bg-white/10 transition">Dashboard</a>
-    <a href="#" class="px-4 py-2 rounded-lg hover:bg-white/10 transition">Invoice</a>
-    <a href="#" class="px-4 py-2 rounded-lg hover:bg-white/10 transition">Wallet</a>
-    <a href="#" class="px-4 py-2 rounded-lg hover:bg-white/10 transition">Notifications</a>
+    <a href="#" class="px-4 py-2 rounded-lg hover:bg-white/10 transition">Proyectos</a>
+  
   </nav>
 
   <!-- Mensajes -->
