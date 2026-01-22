@@ -11,10 +11,11 @@ import { DeleteMember } from "../../components/delete-member/delete-member";
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Members } from "./components/members/members";
 import { Tasks } from "./components/tasks/tasks";
+import { DeleteTask } from "../../components/delete-task/delete-task";
 
 @Component({
   selector: 'app-project-detail',
-  imports: [CommonModule, Modal, AddNewMember, AddNewTask, DeleteMember, Members, Tasks],
+  imports: [CommonModule, Modal, AddNewMember, AddNewTask, DeleteMember, Members, Tasks, DeleteTask],
   templateUrl: './project-detail.html',
   styleUrl: './project-detail.css',
 })

@@ -39,7 +39,19 @@
               (click)="sharedService.setData(task); sharedService.open('deleteTask')"
               class="px-4 py-2 bg-linear-to-r from-red-500 to-red-700 text-white rounded-lg shadow hover:brightness-110 transition"
             >
-              Quitar tarea
+              Eliminar tarea
+            </button>
+            <button
+              (click)="sharedService.setData(task); sharedService.open('deleteTask')"
+              class="px-4 ml-2 py-2 bg-linear-to-r from-orange-500 to-red-700 text-white rounded-lg shadow hover:brightness-110 transition"
+            >
+              Editar tarea
+            </button>
+            <button
+              (click)="sharedService.setData(task); sharedService.open('deleteTask')"
+              class="px-4 ml-2 py-2 bg-linear-to-r from-blue-500 to-purple-700 text-white rounded-lg shadow hover:brightness-110 transition"
+            >
+              Asignar tarea
             </button>
           </td>
         </tr>

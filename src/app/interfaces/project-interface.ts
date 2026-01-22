@@ -3,6 +3,7 @@ export interface Member {
   user_id: string;
   role: string;
   joined_at: string;
+  user?: User;
 }
 
 export interface Project {
@@ -21,5 +22,10 @@ interface task {
   status?: string | null;
   dueDate?: string | null;
   priority?: string | null;
+
+}
+
+interface User{
+  name?:string;
 }
 

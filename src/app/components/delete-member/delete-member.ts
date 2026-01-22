@@ -21,8 +21,6 @@ userData = toSignal(this.usersService.getUserById(this.projectData()?.user_id));
 
   
   onCancel() {
-    console.log(this.userData().id);
-    console.log(this.projectData().project_id);
     this.sharedService.close();
   }
   onDelete() {

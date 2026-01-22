@@ -21,7 +21,7 @@
     <tbody class="divide-y divide-white/10">
       @for (member of project?.members ?? []; track member.id) {
         <tr class="hover:bg-white/10 transition">
-          <td class="px-4 py-3 text-gray-200">{{ member.user_id }}</td>
+          <td class="px-4 py-3 text-gray-200">{{ member.user?.name }}</td>
           <td class="px-4 py-3 font-medium text-white">{{ member.role }}</td>
           <td class="px-4 py-3 text-gray-300">{{ member.joined_at | date:'short' }}</td>
           <td class="px-4 py-3">

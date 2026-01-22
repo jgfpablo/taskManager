@@ -62,3 +62,9 @@
     <app-delete-member></app-delete-member>
   </app-modal>
 }
+
+@if ((sharedService.modal$ | async) === 'deleteTask' ){
+  <app-modal>
+    <app-delete-task></app-delete-task>
+  </app-modal>
+}
