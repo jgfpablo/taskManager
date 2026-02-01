@@ -10,9 +10,15 @@ import { ProjectService } from '../../services/project/project-service';
   styleUrl: './add-new-member.css',
 })
 export class AddNewMember {
-  @Input() projectId?: string;
   sharedService = inject(SharedService);
   projectService = inject(ProjectService);
+  projectId:any;
+
+  ngOnInit() {
+    this.sharedService.currentData.subscribe(id => {
+      this.projectId = id;
+    });
+  }
 
   data:any = [];
   email: string = '';

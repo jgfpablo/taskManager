@@ -18,7 +18,7 @@
     <h3
       (click)="seleccion = 'members'"
       class="cursor-pointer text-lg font-semibold px-3 py-1 rounded-lg transition
-             hover:bg-white/10 hover:text-purple-400"
+          hover:bg-white/10 hover:text-purple-400"
       [class.text-purple-400]="seleccion === 'members'"
     >
       Members
@@ -27,7 +27,7 @@
     <h3
       (click)="seleccion = 'tasks'"
       class="cursor-pointer text-lg font-semibold px-3 py-1 rounded-lg transition
-             hover:bg-white/10 hover:text-purple-400"
+            hover:bg-white/10 hover:text-purple-400"
       [class.text-purple-400]="seleccion === 'tasks'"
     >
       Tasks
@@ -47,13 +47,13 @@
 <!-- Modales -->
 @if ((sharedService.modal$ | async) === 'addMember' ){
   <app-modal>
-    <app-add-new-member [projectId]="project()?.id ?? ''"></app-add-new-member>
+    <app-add-new-member></app-add-new-member>
   </app-modal>
 }
 
 @if ((sharedService.modal$ | async) === 'addTask' ){
   <app-modal>
-    <app-add-new-task [projectId]="project()?.id ?? ''"></app-add-new-task>
+    <app-add-new-task></app-add-new-task>
   </app-modal>
 }
 
@@ -65,6 +65,6 @@
 
 @if ((sharedService.modal$ | async) === 'deleteTask' ){
   <app-modal>
-    <app-delete-task></app-delete-task>
+    <app-delete-task [projectId]="project()?.id"></app-delete-task>
   </app-modal>
 }

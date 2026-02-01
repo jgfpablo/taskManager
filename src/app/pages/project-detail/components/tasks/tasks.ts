@@ -22,15 +22,9 @@ ngOnInit() {
     if (this.project) {
       this.tasks$ = this.tasksService.getAllTasks(this.project.id);
     }
-    this.tasks$.subscribe({
-      next: (response) => {
-        console.log('Tasks fetched successfully:', response);
-      },
-      error: (error) => {
-        console.error('Error fetching tasks:', error);
-      }
-    });
+     this.sharedService.trigger$.subscribe(() => {
+       this.tasks$ = this.tasksService.getAllTasks(this.project.id);
+    })
 }
-
 
 }

@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ProjectService } from '../../services/project/project-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-project-form',
@@ -12,6 +13,7 @@ export class ProjectForm {
 
 private fb = inject(FormBuilder);
 private projectService = inject(ProjectService);
+private route = inject(Router);
 
 projectForm = this.fb.group({
   name: [''],
@@ -25,11 +27,10 @@ public newProject(){
   this.projectService.createProject({name: name!, description: description!}).subscribe({
     next: (response) => {
       console.log('Project created successfully', response);
-      // Handle successful project creation (e.g., show a success message, reset the form, etc.)
+      this.route.navigate(['/projects']);
     },
     error: (error) => {
       console.error('Failed to create project', error);
-      // Handle error (e.g., show an error message)
     }
   });
 

@@ -23,8 +23,8 @@ export class ProjectDetail {
 
   private route = inject(ActivatedRoute);
   private projectService = inject(ProjectService);
-
   public sharedService = inject(SharedService);
+  
   public router = inject(Router);
   public project = toSignal(this.projectService.projectDetail$, { initialValue: null });
 
@@ -35,6 +35,8 @@ export class ProjectDetail {
     if(projectId){
       this.projectService.getProjectById(projectId);
     }
+
+   
   }
 
 }

@@ -2,41 +2,31 @@ import { Component, inject, Input } from '@angular/core';
 import { SharedService } from '../../services/sharedService/shared-service';
 import { FormsModule,FormGroup,FormControl, ReactiveFormsModule } from '@angular/forms';
 import { TasksService } from '../../services/tasks/tasks-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-add-new-task',
-  imports: [FormsModule,ReactiveFormsModule],
+  imports: [FormsModule,ReactiveFormsModule,CommonModule],
   templateUrl: './add-new-task.html',
   styleUrl: './add-new-task.css',
 })
 export class AddNewTask {
-  @Input() projectId?: string;
+  
+  projectId:any;
 
   sharedService = inject(SharedService);
   taskServices = inject(TasksService);
 
-  priority:any[] = [];
-  status:any[] = [];
+  Allpriority$ = this.taskServices.getAllpriority();
+  Allstatus$ = this.taskServices.getAllStatus();
+
   ngOnInit() {
-    this.taskServices.getAllStatus().subscribe({
-      next: (response) => {
-       this.status = response;
-      },
-      error: (error) => {
-        console.error('Error fetching statuses:', error);
-      }
+    this.taskServices.getAllpriority().subscribe(res => console.log(res));
+    console.log('AddNewTask component initialized');
+    this.sharedService.data$.subscribe(data => {
+      this.projectId = data;
     });
-    
-    
-    
-    this.taskServices.getAllpriority().subscribe({
-      next: (response) => {
-        this.priority = response;
-      },
-      error: (error) => {
-        console.error('Error fetching priorities:', error);
-      }
-    });
+  this.taskServices.getAllStatus().subscribe(res => console.log(res));
   }
 
   newTask = new FormGroup({
@@ -52,7 +42,6 @@ export class AddNewTask {
   }
 
   onSave() {
-
     this.taskServices.createTask(this.projectId,this.newTask.value).subscribe({
       next: (response) => {
         console.log('Task created successfully:', response);

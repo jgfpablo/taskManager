@@ -1,6 +1,7 @@
 <div class="mb-6">
   <button
-    (click)="sharedService.open('addMember')"
+  
+    (click)="sharedService.open('addMember'); sharedService.setData(project?.id)"
     class="inline-flex items-center px-5 py-2.5 bg-linear-to-r from-purple-600 to-indigo-700 text-white font-semibold rounded-lg shadow hover:brightness-110 transition"
   >
     + Add Member
