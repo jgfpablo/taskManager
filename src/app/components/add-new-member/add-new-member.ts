@@ -12,7 +12,7 @@ import { ProjectService } from '../../services/project/project-service';
 export class AddNewMember {
   sharedService = inject(SharedService);
   projectService = inject(ProjectService);
-  projectId:any;
+  projectId: any;
 
   ngOnInit() {
     this.sharedService.currentData.subscribe(id => {
@@ -20,7 +20,7 @@ export class AddNewMember {
     });
   }
 
-  data:any = [];
+  data: any;
   email: string = '';
   role: string = '';
 
@@ -31,15 +31,16 @@ export class AddNewMember {
   }
 
   onSave() {
-    this.data = {projectId: this.projectId, email: this.email, role: this.role};
-      this.projectService.addMembersToProject(this.projectId!, this.email, this.role).subscribe({
-        next: (response) => {
-          console.log('Member added successfully:', response);
-        },
-        error: (error) => {
-          console.error('Error adding member:', error);
-        }
-      });
-      this.sharedService.close();
+    this.data = { projectId: this.projectId, email: this.email, role: this.role };
+    this.projectService.addMembersToProject(this.projectId!, this.email, this.role).subscribe({
+      next: (response) => {
+        console.log('Member added successfully:', response);
+      },
+      error: (error) => {
+        console.error('Error adding member:', error);
+      }
+    });
+    this.sharedService.emmitEvent();
+    this.sharedService.close();
   }
 }

@@ -4,9 +4,9 @@
 
   <!-- Body -->
   <div class="space-y-2 text-gray-200">
-    <p><span class="font-semibold text-purple-400">Role:</span> {{ projectData()?.role }}</p>
-    <p><span class="font-semibold text-purple-400">Email:</span> {{ userData()?.email }}</p>
-    <p><span class="font-semibold text-purple-400">Name:</span> {{ userData()?.name }}</p>
+    <p><span class="font-semibold text-purple-400">Role:</span> {{ data?.member.role }}</p>
+    <p><span class="font-semibold text-purple-400">Email:</span> {{ data?.member.user.email }}</p> 
+    <p><span class="font-semibold text-purple-400">Name:</span> {{ data?.member.user.name }}</p> 
   </div>
 
   <!-- Footer -->

@@ -20,14 +20,14 @@
     </thead>
 
     <tbody class="divide-y divide-white/10">
-      @for (member of project?.members ?? []; track member.id) {
+      @for (member of project?.members ?? []; track member) {
         <tr class="hover:bg-white/10 transition">
           <td class="px-4 py-3 text-gray-200">{{ member.user?.name }}</td>
           <td class="px-4 py-3 font-medium text-white">{{ member.role }}</td>
           <td class="px-4 py-3 text-gray-300">{{ member.joined_at | date:'short' }}</td>
           <td class="px-4 py-3">
             <button
-              (click)="sharedService.setData(member); sharedService.open('deleteMember')"
+              (click)="sharedService.setData({member, projectId: project?.id}); sharedService.open('deleteMember')"
               class="px-4 py-2 bg-linear-to-r from-red-500 to-red-700 text-white rounded-lg shadow hover:brightness-110 transition"
             >
               Quitar miembro

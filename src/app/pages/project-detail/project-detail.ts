@@ -24,7 +24,7 @@ export class ProjectDetail {
   private route = inject(ActivatedRoute);
   private projectService = inject(ProjectService);
   public sharedService = inject(SharedService);
-  
+
   public router = inject(Router);
   public project = toSignal(this.projectService.projectDetail$, { initialValue: null });
 
@@ -32,11 +32,17 @@ export class ProjectDetail {
 
   ngOnInit() {
     const projectId = this.route.snapshot.paramMap.get('id')!;
-    if(projectId){
+    console.log(projectId);
+    if (projectId) {
       this.projectService.getProjectById(projectId);
     }
 
-   
+    this.sharedService.trigger$.subscribe(() => {
+      if (projectId) {
+        this.projectService.getProjectById(projectId);
+      }
+    });
+
   }
 
 }

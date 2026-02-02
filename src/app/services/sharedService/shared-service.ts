@@ -9,7 +9,7 @@ export class SharedService {
   trigger$ = new Subject<void>;
 
   data$ = new BehaviorSubject<any>(null);
-  
+
   get currentData() {
     return this.data$.asObservable();
   }
@@ -30,10 +30,8 @@ export class SharedService {
     this.modalSubject.next(null);
   }
 
-
-
-  emmitEvent(){
+  emmitEvent() {
     this.trigger$.next();
   }
-  
+
 }

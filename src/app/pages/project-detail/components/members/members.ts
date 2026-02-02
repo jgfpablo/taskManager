@@ -10,8 +10,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './members.css',
 })
 export class Members {
-@Input() project: Project | null = null;
+  @Input() project: Project | null = null;
 
-sharedService = inject(SharedService);
+  sharedService = inject(SharedService);
 
 }

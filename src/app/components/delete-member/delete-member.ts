@@ -12,19 +12,27 @@ import { toSignal } from '@angular/core/rxjs-interop';
 })
 export class DeleteMember {
 
-sharedService = inject(SharedService);
-projectService = inject(ProjectService);
-usersService = inject(UsersService);
+  sharedService = inject(SharedService);
+  projectService = inject(ProjectService);
+  usersService = inject(UsersService);
 
-projectData = toSignal(this.sharedService.currentData);
-userData = toSignal(this.usersService.getUserById(this.projectData()?.user_id));
+  data: any = [];
 
-  
+  ngOnInit() {
+    this.sharedService.currentData.subscribe(data => {
+      this.data = data;
+    });
+
+
+  }
+
+
   onCancel() {
     this.sharedService.close();
   }
+
   onDelete() {
-    this.projectService.removeMemberFromProject(this.projectData().project_id, this.userData().id).subscribe({
+    this.projectService.removeMemberFromProject(this.data.projectId, this.data.member.user.id).subscribe({
       next: (response) => {
         console.log('Member removed successfully:', response);
       },

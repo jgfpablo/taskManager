@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { Auth } from '../../services/auth/auth';
-import { FormBuilder, Validators,ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule,FormsModule],
+  imports: [ReactiveFormsModule, FormsModule],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
@@ -23,13 +23,12 @@ export class Register {
 
   register() {
 
-    const {name,email,password} = this.registerForm.value;
+    const { name, email, password } = this.registerForm.value;
 
     this.authService.register(name!, email!, password!).subscribe({
       next: (response) => {
         console.log('Registration successful');
         this.router.navigate(['/login']);
-        
       },
       error: (error) => {
         console.error('Registration failed', error);

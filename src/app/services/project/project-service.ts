@@ -1,17 +1,20 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Project } from '../../interfaces/project-interface';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { SharedService } from '../sharedService/shared-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectService {
-  
 
   private api = 'http://localhost:3000/api/projects';
 
-  constructor(private http: HttpClient) {}
+
+  constructor(private http: HttpClient) { }
+
+  sharedService = inject(SharedService);
 
   private projectSubject = new BehaviorSubject<Project[] | null>(null);
   projectList$ = this.projectSubject.asObservable();
@@ -19,12 +22,11 @@ export class ProjectService {
   private projectDetailSubject = new BehaviorSubject<Project | null>(null);
   projectDetail$ = this.projectDetailSubject.asObservable();
 
-
-  getProjects(){
+  getProjects() {
     this.http.get<Project[]>(this.api).subscribe(
-    (project => {
+      (project => {
         this.projectSubject.next(project);
-    })
+      })
     );
   }
 
@@ -33,29 +35,32 @@ export class ProjectService {
   }
 
   getProjectById(id: string) {
-    return this.http.get<any>(`${this.api}/${id}`).subscribe(
+    return this.http.get<Project>(`${this.api}/${id}`).subscribe(
       (project => {
-        this.projectDetailSubject.next(project[0]);
+        this.projectDetailSubject.next(project);
       })
     );
   }
 
-addMembersToProject(projectId: string, email: string, role: string) {
-  return this.http.post<any>(`${this.api}/addMembers`, { projectId, email, role })
-    .pipe(
+  addMembersToProject(projectId: string, email: string, role: string) {
+    return this.http.post<void>(`${this.api}/addMembers`, { projectId, email, role })
+      .pipe(
+        tap(() => {
+          // llamarlo para recargar para actualizar el html
+          // this.getProjectById(projectId);
+          this.sharedService.emmitEvent();
+
+        })
+      );
+  }
+
+  removeMemberFromProject(projectId: string, userId: string) {
+
+    return this.http.delete<void>(`${this.api}/${projectId}/members/${userId}`).pipe(
       tap(() => {
-        // llamarlo para recargar para actualizar el html
         this.getProjectById(projectId);
       })
     );
-}
-
-removeMemberFromProject(projectId: string, userId: string) {
-  return this.http.delete<any>(`${this.api}/${projectId}/members/${userId}`).pipe(
-    tap(() => {
-      this.getProjectById(projectId);
-    })
-  );
-}
+  }
 
 }
