@@ -12,10 +12,10 @@ export interface Project {
   description?: string;
   created_at: string;
   created_by: string;
-  members: Member[]; // ✅ ahora es un array de objetos Member
+  members: Member[]; 
 }
 
-interface task {
+export interface task {
   title: string | null;
   description?: string | null;
   projectId: string;
@@ -25,7 +25,8 @@ interface task {
 
 }
 
-interface User{
+export interface User{
   name?:string;
+  email:string;
 }
 

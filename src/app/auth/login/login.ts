@@ -35,7 +35,6 @@ public login() {
     },
     error: (error) => {
       console.error('Login failed', error);
-      // Handle login error (e.g., show error message)
     }
   });
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, tap } from 'rxjs';
+import { User } from '../../interfaces/project-interface';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class Auth {
 
 
  login(email: string, password: string) {
-    return this.http.post<{ token: string,user:any }>(
+    return this.http.post<{ token: string,user:User }>(
       `${this.api}auth/login`,
       { email, password }
     ).pipe(tap(response => {
@@ -30,7 +31,7 @@ export class Auth {
     return localStorage.getItem('auth_token');
   };
 
-  logout() {
+  logout():void {
     localStorage.removeItem('auth_token');
   }
 
